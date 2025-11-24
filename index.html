@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Luthfi</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #020617;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.4),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .nav {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+    }
+
+    .nav-right a {
+      position: relative;
+      padding-bottom: 0.15rem;
+    }
+
+    .nav-right a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.2s ease-out;
+    }
+
+    .nav-right a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    section {
+      padding: 3rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-dot {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4vw, 2.6rem);
+      margin: 0.25rem 0 0.75rem;
+    }
+
+    .highlight {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 34rem;
+    }
+
+    .hero-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: transparent;
+      cursor: pointer;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-card {
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      background: radial-gradient(circle at top left, #22c55e1c, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 18px 70px rgba(15, 23, 42, 0.8);
+      font-size: 0.85rem;
+    }
+
+    .hero-card h2 {
+      font-size: 1rem;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .hero-meta {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+    }
+
+    .meta-value {
+      font-weight: 500;
+    }
+
+    .section-title {
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading {
+      font-size: 1.4rem;
+      margin: 0 0 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 32rem;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 1rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.98rem;
+    }
+
+    .card span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+      line-height: 1.5;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+    }
+
+    .tag-accent {
+      background: var(--accent-soft);
+      border-color: rgba(34, 197, 94, 0.7);
+      color: var(--accent);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0.3rem;
+      bottom: 0.3rem;
+      left: 0.3rem;
+      width: 2px;
+      background: rgba(55, 65, 81, 0.9);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.25rem;
+      padding-left: 0.8rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -0.1rem;
+      top: 0.25rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    .timeline-year {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .timeline-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .timeline-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .portfolio-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 1rem;
+      padding: 0.8rem 0.9rem 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.8rem;
+    }
+
+    .portfolio-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+
+    .portfolio-text {
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: 1.75rem;
+    }
+
+    .contact-item {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+
+    .contact-form {
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.85rem;
+    }
+
+    .field {
+      margin-bottom: 0.7rem;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 0.4rem 0.55rem;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 0.82rem;
+      resize: vertical;
+      min-height: 2.1rem;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      background: radial-gradient(circle at top, #020617, #020617);
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .grid-2,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .portfolio-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .nav-right {
+        gap: 0.75rem;
+        font-size: 0.78rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      main {
+        padding-inline: 1rem;
+      }
+      .portfolio-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="nav-left">Luthfi • Data & Automation</div>
+      <div class="nav-right">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang</a>
+        <a href="#education">Pendidikan</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Kontak</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Available for internship
+        </div>
+        <h1>
+          Hi, saya <span class="highlight">Muhammad Luthfi</span><br />
+        </h1>
+        <p class="hero-subtitle">
+          Mahasiswa S1 Teknik Informatika UMM (semester 9) dengan fokus pada
+          data science, data cleaning dunia nyata, dan automation. Berpengalaman
+          mengolah data pemerintah yang berantakan, membangun bot scraping, serta membuat model ML berbasis data image.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Kontak saya</a>
+          <a href="#portfolio" class="btn btn-outline">Lihat portfolio</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h2>Profil Singkat</h2>
+        <p>
+          Saya suka mengubah data mentah menjadi insight yang bisa dipakai
+          langsung. Mulai dari membersihkan ribuan baris data, membangun
+          dashboard, sampai membuat sistem otomatis untuk mencari peluang kerja.
+        </p>
+        <div class="hero-meta">
+          <div>
+            <div class="meta-label">Fokus</div>
+            <div class="meta-value">Data Engineer & Automation</div>
+          </div>
+          <div>
+            <div class="meta-label">Domisili</div>
+            <div class="meta-value">Jawa Timur, Indonesia</div>
+          </div>
+          <div>
+            <div class="meta-label">Bahasa</div>
+            <div class="meta-value">ID, EN</div>
+          </div>
+          <div>
+            <div class="meta-label">Status</div>
+            <div class="meta-value">Siap magang / entry-level</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT & SKILLS -->
+    <section id="about">
+      <div class="section-title">About & Skills</div>
+      <h2 class="section-heading">Tentang saya & Skill utama</h2>
+      <p class="section-desc">
+        Saya memulai pemrograman dengan Java (OOP), kemudian mendalami Python
+        untuk data science. Pengalaman magang di DISKOMINFO dan berbagai proyek
+        pribadi membentuk saya sebagai seseorang yang nyaman dengan data kotor,
+        eksperimen, dan otomasi proses.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Keahlian Utama</h3>
+          <p>
+            Fokus pada pengolahan data, otomatisasi, dan penerapan machine
+            learning yang benar-benar menyentuh kasus nyata.
+          </p>
+          <div class="tags">
+            <span class="tag tag-accent">Python (Pandas, NumPy)</span>
+            <span class="tag">Data Cleaning</span>
+            <span class="tag">ETL</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Excel / Google Sheets</span>
+            <span class="tag">OOP (Java)</span>
+            <span class="tag">Web Scraping</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Minat & Arah Karier</h3>
+          <p>
+            Saya tertarik berkarier sebagai Data Analyst / Data Engineer /
+            Automation Engineer yang membantu bisnis mengambil keputusan
+            berbasis data, terutama di sektor teknologi, F&B, dan layanan
+            digital.
+          </p>
+          <div class="tags">
+            <span class="tag">Data Analytics</span>
+            <span class="tag">Automation</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Dashboard & BI</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION & EXPERIENCE -->
+    <section id="education">
+      <div class="section-title">Education & Experience</div>
+      <h2 class="section-heading">Pendidikan & Pengalaman</h2>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Pendidikan</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">2019 – Sekarang</div>
+              <div class="timeline-title">
+                S1 Teknik Informatika – Universitas Muhammadiyah Malang
+              </div>
+              <div class="timeline-sub">
+                Fokus pada Data Science, Machine Learning, dan pemrograman.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Pengalaman</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">DISKOMINFO Kutai Kartanegara</div>
+              <div class="timeline-title">Data Processing Intern</div>
+              <div class="timeline-sub">
+                Membersihkan dan menstandarkan ribuan data koperasi dari
+                berbagai file tidak konsisten agar siap diimport ke sistem.
+                Menyelesaikan backlog yang tertunda &gt; 6 bulan dalam ±1 bulan.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="section-title">Portfolio</div>
+      <h2 class="section-heading">Beberapa proyek yang pernah saya kerjakan</h2>
+      <p class="section-desc">
+        Berikut beberapa proyek yang menunjukkan minat saya pada data, otomasi,
+        dan pengembangan aplikasi.
+      </p>
+
+      <div class="portfolio-grid">
+
+        <div class="portfolio-card">
+          <div class="portfolio-title">IziWOS - Laundry Service Finder</div>
+          <div class="portfolio-text">
+            Website prototype untuk menemukan jasa laundry & cleaning terdekat,
+            menggunakan konsep On-Demand Platform untuk layanan kebersihan.
+          </div>
+          <div class="tags">
+            <span class="tag">Web Dev</span>
+            <span class="tag">UI/UX Basic</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-title">Bot Scraping Lowongan Kerja</div>
+          <div class="portfolio-text">
+            Bot yang otomatis mengambil data lowongan kerja (JobStreet, dsb.),
+            mem-filter berdasarkan kriteria, dan membantu menemukan peluang
+            kerja lebih cepat.
+          </div>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Web Scraping</span>
+            <span class="tag">Automation</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-title">IziWOS - Laundry Service Finder</div>
+          <div class="portfolio-text">
+            Website prototype untuk menemukan jasa laundry & cleaning terdekat,
+            menggunakan konsep On-Demand Platform untuk layanan kebersihan.
+          </div>
+          <div class="tags">
+            <span class="tag">Web Dev</span>
+            <span class="tag">UI/UX Basic</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-title">Deteksi Wajah Mengantuk</div>
+          <div class="portfolio-text">
+            Model machine learning berbasis dataset wajah lelah untuk mendeteksi
+            indikasi kantuk - relevan untuk keamanan berkendara & monitoring.
+          </div>
+          <div class="tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Computer Vision</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-title">
+            Cleaning Data Dinas Koperasi - Pemerintah Daerah
+          </div>
+          <div class="portfolio-text">
+            Menyusun ulang dan menstandarkan data dari banyak file Excel dengan
+            struktur acak menggunakan Python (Pandas) untuk automasi cleaning dan validasi, sehingga dapat langsung diintegrasikan ke sistem
+            informasi.
+          </div>
+          <div class="tags">
+            <span class="tag">Data Cleaning</span>
+            <span class="tag">ETL Basic</span>
+            <span class="tag">Government Data</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-title">Analisis Demanded Job di Jawa Timur</div>
+          <div class="portfolio-text">
+            (Planned) Mengambil dan menganalisis lowongan pekerjaan di Jawa
+            Timur untuk melihat tren job & skill yang paling dicari.
+          </div>
+          <div class="tags">
+            <span class="tag">Analytics</span>
+            <span class="tag">Dashboard</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title">Contact</div>
+      </p>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-item">
+            <strong>Email</strong>
+            muhammad.luthfi2502@gmail.com
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp</strong>
+            081250808504
+          </div>
+          <div class="contact-item">
+            <strong>Domisili</strong>
+            Jawa Timur, Indonesia
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Luthfi. Dibuat dengan HTML &amp; CSS murni.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
